@@ -884,7 +884,7 @@ if (NOT LWS_HAVE_inline)
 endif()
 
 # Put the libraries and binaries that get built into directories at the
-# top of the build tree rather than in hard-to-find leaf directories. 
+# top of the build tree rather than in hard-to-find leaf directories.
 SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
 SET(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/lib")
 SET(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/lib")
@@ -1038,7 +1038,7 @@ set(LWS_HAVE_WORKING_VFORK LWS_HAVE_VFORK)
 
 CHECK_INCLUDE_FILES("stdlib.h;stdarg.h;string.h;float.h" STDC_HEADERS)
 
-CHECK_C_SOURCE_COMPILES("#include <stdint.h> 
+CHECK_C_SOURCE_COMPILES("#include <stdint.h>
 	int main(void) {
 		intptr_t test = 1;
 		return 0;
@@ -1085,11 +1085,11 @@ if (NOT LWS_HAVE_REALLOC)
 endif()
 
 if (UNIX)
-	execute_process( COMMAND grep -c illumos /lib/ld.so.1 
+	execute_process( COMMAND grep -c illumos /lib/ld.so.1
 			 OUTPUT_VARIABLE ILLUMOS ERROR_QUIET )
 	# Chomp the \n at end of output.
 	string(REGEX REPLACE "[\n]+" "" ILLUMOS "${ILLUMOS}")
-	
+
 	if(NOT ${ILLUMOS} MATCHES "0")
 		add_definitions( "-D__illumos__" )
 		set(ILLUMOS 1)
@@ -1147,7 +1147,7 @@ if (LWS_WITH_DEPRECATED_LWS_DLL)
 	list(APPEND SOURCES
 		lib/core/lws_dll.c)
 endif()
-	
+
 if (LWS_WITH_NETWORK)
 	list(APPEND SOURCES
 		lib/core-net/dummy-callback.c
@@ -1328,7 +1328,7 @@ if (LWS_ROLE_RAW)
 	if (LWS_ROLE_RAW_FILE)
 		list(APPEND SOURCES lib/roles/raw-file/ops-raw-file.c)
 	endif()
-		
+
 	if (LWS_WITH_ABSTRACT)
 		list(APPEND SOURCES
 			lib/abstract/transports/raw-skt.c)
@@ -1408,12 +1408,12 @@ endif()
 
 if (LWS_WITH_MBEDTLS)
  	set(LWS_WITH_SSL ON)
- 	
+
 	include_directories(lib/tls/mbedtls/wrapper/include)
 	include_directories(lib/tls/mbedtls/wrapper/include/platform)
 	include_directories(lib/tls/mbedtls/wrapper/include/internal)
 	include_directories(lib/tls/mbedtls/wrapper/include/openssl)
- 	
+
  	if (LWS_WITH_NETWORK)
 		list(APPEND HDR_PRIVATE
 			lib/tls/mbedtls/wrapper/include/internal/ssl3.h
@@ -1428,14 +1428,14 @@ if (LWS_WITH_MBEDTLS)
 			lib/tls/mbedtls/wrapper/include/internal/ssl_x509.h
 			lib/tls/mbedtls/wrapper/include/internal/tls1.h
 			lib/tls/mbedtls/wrapper/include/internal/x509_vfy.h)
-	
+
 		list(APPEND HDR_PRIVATE
 			lib/tls/mbedtls/wrapper/include/openssl/ssl.h)
-	
+
 		list(APPEND HDR_PRIVATE
 			lib/tls/mbedtls/wrapper/include/platform/ssl_pm.h
 			lib/tls/mbedtls/wrapper/include/platform/ssl_port.h)
-	
+
 		list(APPEND SOURCES
 			lib/tls/mbedtls/wrapper/library/ssl_cert.c
 			lib/tls/mbedtls/wrapper/library/ssl_lib.c
@@ -1443,7 +1443,7 @@ if (LWS_WITH_MBEDTLS)
 			lib/tls/mbedtls/wrapper/library/ssl_pkey.c
 			lib/tls/mbedtls/wrapper/library/ssl_stack.c
 			lib/tls/mbedtls/wrapper/library/ssl_x509.c)
-	
+
 		list(APPEND SOURCES
 			lib/tls/mbedtls/wrapper/platform/ssl_pm.c
 			lib/tls/mbedtls/wrapper/platform/ssl_port.c)
@@ -1459,7 +1459,7 @@ if (LWS_WITH_SSL)
 			lib/tls/tls-network.c
 		)
 	endif()
-		
+
 	if (LWS_WITH_MBEDTLS)
 		list(APPEND SOURCES
 			lib/tls/mbedtls/mbedtls-tls.c
@@ -1501,7 +1501,7 @@ if (LWS_WITH_SSL)
 			)
 		endif()
 	endif()
-		
+
 	if (NOT LWS_WITHOUT_SERVER)
 		list(APPEND SOURCES
 			lib/tls/tls-server.c)
@@ -1523,7 +1523,7 @@ if (LWS_WITH_SSL)
 			list(APPEND SOURCES
 				lib/tls/openssl/openssl-client.c)
 		endif()
-		
+
 	endif()
 endif()
 
@@ -1609,7 +1609,7 @@ else()
 					endif()
 				endif()
 			endif()
-				
+
 			if (LWS_WITH_PLUGINS AND LWS_WITH_LIBUV)
 				list(APPEND SOURCES lib/plat/unix/unix-plugins.c)
 			endif()
@@ -1672,7 +1672,7 @@ endif()
 if (LWS_WITH_LEJP)
 	list(APPEND SOURCES
 		lib/misc/lejp.c)
-endif()	
+endif()
 if (LWS_WITH_LEJP_CONF AND LWS_WITH_NETWORK AND NOT LWS_PLAT_OPTEE)
 		list(APPEND SOURCES
 			"lib/roles/http/server/lejp-conf.c"
@@ -2204,7 +2204,7 @@ if (UNIX)
 	list(APPEND LIB_LIST dl)
 endif()
 
-if (LWS_WITH_ZLIB AND NOT LWS_WITH_BUNDLED_ZLIB)
+if (LWS_WITH_ZLIB AND LWS_WITH_BUNDLED_ZLIB)
 	list(APPEND LIB_LIST "${ZLIB_LIBRARIES}")
 endif()
 
@@ -2383,7 +2383,7 @@ if (GENCERTS)
 		endif()
 	endif()
 
-	list(APPEND TEST_SERVER_DATA 
+	list(APPEND TEST_SERVER_DATA
 		"${TEST_SERVER_SSL_KEY}"
 		"${TEST_SERVER_SSL_CERT}")
 endif()
@@ -2522,8 +2522,8 @@ if ((LWS_ROLE_H1 OR LWS_ROLE_H2) AND NOT LWS_WITHOUT_TESTAPPS)
 			# Set defines for this executable only.
 			set_property(
 				TARGET test-server-extpoll
-				PROPERTY COMPILE_DEFINITIONS 
-					EXTERNAL_POLL 
+				PROPERTY COMPILE_DEFINITIONS
+					EXTERNAL_POLL
 					INSTALL_DATADIR="${CMAKE_INSTALL_PREFIX}/share"
 				)
 
@@ -2558,7 +2558,7 @@ if ((LWS_ROLE_H1 OR LWS_ROLE_H2) AND NOT LWS_WITHOUT_TESTAPPS)
 			"${PROJECT_SOURCE_DIR}/test-apps/test.js")
 
 		add_custom_command(TARGET test-server
-						POST_BUILD 
+						POST_BUILD
 						COMMAND "${CMAKE_COMMAND}" -E make_directory "$<TARGET_FILE_DIR:test-server>/../share/libwebsockets-test-server")
 
 		# Copy the file needed to run the server so that the test apps can
@@ -2566,7 +2566,7 @@ if ((LWS_ROLE_H1 OR LWS_ROLE_H2) AND NOT LWS_WITHOUT_TESTAPPS)
 		foreach (TEST_FILE ${TEST_SERVER_DATA})
 			if (EXISTS ${TEST_FILE})
 				add_custom_command(TARGET test-server
-							POST_BUILD 
+							POST_BUILD
 							COMMAND "${CMAKE_COMMAND}" -E copy "${TEST_FILE}" "$<TARGET_FILE_DIR:test-server>/../share/libwebsockets-test-server" VERBATIM)
 			endif()
 		endforeach()
@@ -2581,8 +2581,8 @@ if ((LWS_ROLE_H1 OR LWS_ROLE_H2) AND NOT LWS_WITHOUT_TESTAPPS)
 		endif()
 
 	endif(NOT LWS_WITHOUT_CLIENT)
-	
-	
+
+
 	if (LWS_WITH_PLUGINS AND LWS_WITH_SHARED)
 		macro(create_plugin PLUGIN_NAME PLUGIN_INCLUDE MAIN_SRC S2 S3)
 
@@ -2613,7 +2613,7 @@ if ((LWS_ROLE_H1 OR LWS_ROLE_H2) AND NOT LWS_WITHOUT_TESTAPPS)
 		source_group("Headers Private"   FILES ${PLUGIN_HDR})
 		source_group("Sources"   FILES ${PLUGIN_SRCS})
 		add_library(${PLUGIN_NAME} SHARED ${PLUGIN_SRCS} ${PLUGIN_HDR})
-		
+
 		target_link_libraries(${PLUGIN_NAME} websockets_shared)
 		add_dependencies(${PLUGIN_NAME} websockets_shared)
 		include_directories(${PLUGIN_INCLUDE})
@@ -2634,7 +2634,7 @@ if ((LWS_ROLE_H1 OR LWS_ROLE_H2) AND NOT LWS_WITHOUT_TESTAPPS)
 		list(APPEND PLUGINS_LIST ${PLUGIN_NAME})
 
 		endmacro()
-		
+
 if (LWS_ROLE_WS)
 		create_plugin(protocol_dumb_increment ""
 			      "plugins/protocol_dumb_increment.c" "" "")
@@ -2900,35 +2900,35 @@ endif()
 export(PACKAGE libwebsockets)
 
 # Generate the config file for the build-tree.
-set(LWS__INCLUDE_DIRS 
+set(LWS__INCLUDE_DIRS
     "${PROJECT_SOURCE_DIR}/lib"
     "${PROJECT_BINARY_DIR}")
 set(LIBWEBSOCKETS_INCLUDE_DIRS ${LWS__INCLUDE_DIRS} CACHE PATH "Libwebsockets include directories")
 configure_file(${PROJECT_SOURCE_DIR}/cmake/LibwebsocketsConfig.cmake.in
-                ${PROJECT_BINARY_DIR}/LibwebsocketsConfig.cmake 
+                ${PROJECT_BINARY_DIR}/LibwebsocketsConfig.cmake
                 @ONLY)
 
 # Generate the config file for the installation tree.
 get_filename_component(LWS_ABSOLUTE_INSTALL_CMAKE_DIR ${LWS_INSTALL_CMAKE_DIR} ABSOLUTE)
 get_filename_component(LWS_ABSOLUTE_INSTALL_INCLUDE_DIR ${LWS_INSTALL_INCLUDE_DIR} ABSOLUTE)
-file(RELATIVE_PATH 
-    REL_INCLUDE_DIR 
+file(RELATIVE_PATH
+    REL_INCLUDE_DIR
     "${LWS_ABSOLUTE_INSTALL_CMAKE_DIR}"
     "${LWS_ABSOLUTE_INSTALL_INCLUDE_DIR}") # Calculate the relative directory from the cmake dir.
 
-# Note the EVENT_CMAKE_DIR is defined in JanssonConfig.cmake.in, 
+# Note the EVENT_CMAKE_DIR is defined in JanssonConfig.cmake.in,
 # we escape it here so it's evaluated when it is included instead
-# so that the include dirs are given relative to where the 
+# so that the include dirs are given relative to where the
 # config file is located.
-set(LWS__INCLUDE_DIRS 
-    "\${LWS_CMAKE_DIR}/${REL_INCLUDE_DIR}") 
+set(LWS__INCLUDE_DIRS
+    "\${LWS_CMAKE_DIR}/${REL_INCLUDE_DIR}")
 configure_file(${PROJECT_SOURCE_DIR}/cmake/LibwebsocketsConfig.cmake.in
-                ${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/LibwebsocketsConfig.cmake 
+                ${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/LibwebsocketsConfig.cmake
                 @ONLY)
 
 # Generate version info for both build-tree and install-tree.
 configure_file(${PROJECT_SOURCE_DIR}/cmake/LibwebsocketsConfigVersion.cmake.in
-                ${PROJECT_BINARY_DIR}/LibwebsocketsConfigVersion.cmake 
+                ${PROJECT_BINARY_DIR}/LibwebsocketsConfigVersion.cmake
                 @ONLY)
 
 			set_target_properties(${LWS_LIBRARIES}
@@ -2948,7 +2948,7 @@ install(TARGETS ${LWS_LIBRARIES}
 		ARCHIVE DESTINATION "${LWS_INSTALL_LIB_DIR}${LIB_SUFFIX}" COMPONENT libraries
 		RUNTIME DESTINATION "${LWS_INSTALL_BIN_DIR}" COMPONENT libraries # Windows DLLs
 		PUBLIC_HEADER DESTINATION "${LWS_INSTALL_INCLUDE_DIR}" COMPONENT dev)
-		
+
 set(CPACK_COMPONENT_LIBRARIES_DISPLAY_NAME "Libraries")
 set(CPACK_COMPONENT_DEV_DISPLAY_NAME "Development files")
 
@@ -3029,7 +3029,7 @@ if (LWS_WITH_GENERIC_SESSIONS)
 		      plugins/generic-sessions/assets/index.html
 		DESTINATION share/libwebsockets-test-server/generic-sessions
 			COMPONENT examples)
-	install(FILES plugins/generic-sessions/assets/successful-login.html 
+	install(FILES plugins/generic-sessions/assets/successful-login.html
 		DESTINATION share/libwebsockets-test-server/generic-sessions/needauth
 			COMPONENT examples)
 	install(FILES plugins/generic-sessions/assets/admin-login.html
